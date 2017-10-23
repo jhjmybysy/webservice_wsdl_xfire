@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://xfire.codehaus.org/config/1.0">
+
+	<service>
+		<name>bankSer</name>		
+		<serviceClass>com.sendXfire.service.BankSer</serviceClass>
+		<implementationClass>com.sendXfire.service.impl.BankSerImpl</implementationClass>		
+	</service>
+	
+</beans>

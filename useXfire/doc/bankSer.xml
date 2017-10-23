@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.sendXfire.com" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.sendXfire.com" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://entity.sendXfire.com" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://entity.sendXfire.com">
+<xsd:complexType name="Bank">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="account" nillable="true" type="xsd:string"/>
+<xsd:element minOccurs="0" name="balance" nillable="true" type="xsd:float"/>
+<xsd:element minOccurs="0" name="bankName" nillable="true" type="xsd:string"/>
+<xsd:element minOccurs="0" name="money" nillable="true" type="xsd:float"/>
+<xsd:element minOccurs="0" name="opraStatus" nillable="true" type="xsd:string"/>
+<xsd:element minOccurs="0" name="password" nillable="true" type="xsd:string"/>
+<xsd:element minOccurs="0" name="prompt" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:schema>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.sendXfire.com">
+<xsd:element name="transition">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="ns1:Bank"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="ns1:Bank"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="transitionResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:Bank"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="transitionResponse">
+    <wsdl:part name="parameters" element="tns:transitionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="transitionRequest">
+    <wsdl:part name="parameters" element="tns:transition">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="bankSerPortType">
+    <wsdl:operation name="transition">
+      <wsdl:input name="transitionRequest" message="tns:transitionRequest">
+    </wsdl:input>
+      <wsdl:output name="transitionResponse" message="tns:transitionResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="bankSerHttpBinding" type="tns:bankSerPortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="transition">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="transitionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="transitionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="bankSer">
+    <wsdl:port name="bankSerHttpPort" binding="tns:bankSerHttpBinding">
+      <wsdlsoap:address location="http://localhost:8080/XfireSend/services/bankSer"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
